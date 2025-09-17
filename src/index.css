@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.slick-prev,
+.slick-next {
+  width: 42px !important;
+  height: 42px !important;
+  z-index: 20;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 40px !important;
+  color: white; 
+}
