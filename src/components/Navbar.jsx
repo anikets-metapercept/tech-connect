@@ -3,10 +3,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import Main_Logo from "../assets/techConnect.png";
 import { Link, NavLink } from "react-router-dom";
 
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowLeft,
-} from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -54,8 +51,8 @@ function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 z-40 left-0 right-0 shadow customWidth:rounded-full max-w-screen-2xl mx-auto">
-        <div className="py-5 px-4 lg:px-12 flex items-center justify-between bg-backgroundColor w-full text-white mx-auto">
+      <nav className="fixed top-0 z-50 left-0 right-0 shadow bg-backgroundColor ">
+        <div className="py-5 px-4 lg:px-10 flex items-center justify-between w-full max-w-screen-2xl text-white mx-auto">
           {/* Logo */}
           <Link to={"/"}>
             <img

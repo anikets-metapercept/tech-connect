@@ -75,7 +75,7 @@ function HomeSection3() {
             <h3 className="text-white font-bold text-[24px] sm:text-[32px] lg:text-[60px] leading-[150%]">
               Meet The Talented Speakers
             </h3>
-            <p className="max-w-[800px] text-center text-white text-[24px] sm:text-[28px] lg:text-[32px]">
+            <p className="max-w-[800px] text-center text-white text-[18px] sm:text-[28px] lg:text-[32px]">
               The convention is the main event of the year for professionals in
               the world of AI and Technology .
             </p>
@@ -84,13 +84,13 @@ function HomeSection3() {
             <Slider {...settings}>
               {speakers.map((speaker, index) => (
                 <div key={index} className="px-4 lg:px-10">
-                  <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[420px] transition-all duration-300 ease-in-out">
+                  <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[400px] transition-all duration-300 ease-in-out">
                     <img
                       src={speaker.photo}
                       alt={`Speaker ${speaker.name}`}
                       className="w-full h-full object-cover transition-opacity duration-300"
                     />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
                     <div className="absolute bottom-0 w-full p-4 text-center">
                       <p className="text-white font-semibold text-lg">
                         {speaker.name}

@@ -5,16 +5,16 @@ function HomeSection4() {
   return (
     <div className="bg-[#051639]">
       <div className="max-w-screen-2xl mx-auto px-4 lg:px-10">
-        <div className="w-full flex justify-center items-center flex-col lg:flex-row gap-5 md:gap-10 p-4 relative">
-          <div className="w-full hidden lg:block absolute top-2 left-5">
+        <div className="w-full flex justify-center items-start flex-col lg:flex-row gap-5 md:gap-10 py-4 relative">
+          <div className="w-fit hidden lg:block absolute top-2 left-0">
             <img
               style={{ maxWidth: "94px" }}
               src={cornerImg}
               alt="Corner Image"
-              className="mt-2"
+              className="mt-5"
             />
           </div>
-          <div className="flex justify-center items-center flex-col gap-10">
+          <div className="flex justify-start items-center flex-col gap-10 lg:mt-8">
             <h3 className="text-[24px] lg:text-[48px] text-white font-semibold">
               About Us
             </h3>

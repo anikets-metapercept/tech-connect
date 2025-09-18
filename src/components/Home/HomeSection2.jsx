@@ -46,12 +46,12 @@ function HomeSection2() {
 
   return (
     <div>
-      <div className="max-w-screen-2xl mx-auto px-4 lg:px-5">
+      <div className="max-w-screen-2xl mx-auto px-4 lg:px-10">
         <div className="w-full flex justify-center items-center customWidth:flex-col lg:flex-row flex-col gap-5 md:gap-10 py-16">
           <p className="font-semibold text-[18px] lg:text-[32px] text-white">
             Powered by
           </p>
-          <div className="w-full max-w-4xl">
+          <div className="w-full max-w-5xl">
             <Slider {...settings}>
               {logos.map((logo, index) => (
                 <div key={index} className="px-3 py-2">

@@ -22,11 +22,11 @@ const Counter = ({ target, label, isVisible }) => {
   }, [target, isVisible]);
 
   return (
-    <div className="flex justify-center items-center flex-col text-center p-1 w-72">
-      <div className="font-semibold text-[32px]">
-        {count} <span className="font-semibold text-[32px]">+</span>
+    <div className="flex justify-center items-center flex-col text-center p-1 w-[260px]">
+      <div className="font-semibold text-[68px]">
+        {count}<span className="font-semibold text-[68px]">+</span>
       </div>
-      <div className="text-black font-semibold text-[24px]">{label}</div>
+      <div className="font-semibold text-[18px]">{label}</div>
     </div>
   );
 };
@@ -69,14 +69,17 @@ function HomeSection5() {
               Tech Connect
             </h3>
           </div>
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center gap-5 lg:gap-10">
+          <div className="w-full flex justify-center items-center flex-wrap gap-5">
             <Counter target={10} label="EDITION" isVisible={isVisible} />
+            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
             <Counter target={10} label="SESSIONS" isVisible={isVisible} />
+            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
             <Counter
               target={100}
               label="TRAINING DELIVERIES"
               isVisible={isVisible}
             />
+            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
             <Counter target={50} label="SPEAKERS" isVisible={isVisible} />
           </div>
         </div>
