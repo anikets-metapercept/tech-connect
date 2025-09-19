@@ -7,14 +7,8 @@ import {
 import { Link } from "react-router-dom";
 import cornerImg from "../../assets/home/corner-img.png";
 import section4Img from "../../assets/home/section4.png";
-import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 const events = [
   {
     eventName: "Event 1",
@@ -104,7 +98,7 @@ function HomeSection6() {
                 loop={true}
                 slidesPerView={1}
                 breakpoints={{
-                  920: { slidesPerView: 3 },
+                  1026: { slidesPerView: 3 },
                   768: { slidesPerView: 2 },
                 }}
                 coverflowEffect={{
@@ -115,16 +109,16 @@ function HomeSection6() {
                   slideShadows: true,
                 }}
                 navigation={{
-                  nextEl: ".custom-next",
-                  prevEl: ".custom-prev",
+                  nextEl: ".custom-next-two",
+                  prevEl: ".custom-prev-two",
                 }}
                 className="carousel-3D-swiper"
               >
                 {events.map((event, index) => (
                   <SwiperSlide key={index} className="px-2 lg:px-4 w-full">
-                    <div className="group bg-white rounded-lg flex flex-col lg:flex-row overflow-hidden h-auto lg:h-[450px] transition-all duration-300 ease-in-out shadow-lg mx-auto max-w-[520px]">
+                    <div className="group bg-white rounded-lg flex flex-col overflow-hidden h-auto lg:h-fit transition-all duration-300 ease-in-out shadow-lg mx-auto max-w-[520px]">
                       {/* Image (left) */}
-                      <div className="w-full lg:w-1/2 h-[200px] lg:h-full">
+                      <div className="w-full h-[200px] lg:h-auto">
                         <img
                           src={event.photo}
                           alt={`Event ${event.eventName}`}
@@ -133,7 +127,7 @@ function HomeSection6() {
                       </div>
 
                       {/* Details (right) */}
-                      <div className="p-4 lg:p-6 flex flex-col justify-evenly w-full lg:w-1/2">
+                      <div className="p-4 lg:p-6 flex flex-col justify-evenly w-full">
                         <div className="space-y-3">
                           <h3 className="font-bold text-[16px] lg:text-[18px]">
                             {event.eventName}
@@ -155,11 +149,11 @@ function HomeSection6() {
                             <span>{event.location}</span>
                           </p>
                           <Link
-                            className="text-[14px] lg:text-[16px] text-textHover flex items-center gap-1 ml-1"
+                            className="group text-[14px] lg:text-[16px] text-textHover flex items-center gap-1 ml-1"
                             to={event.moreInfoLink}
                           >
                             <span>More Info</span>
-                            <IoArrowForward className="size-5 -rotate-45 mt-1" />
+                            <IoArrowForward className="size-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300 mt-1" />
                           </Link>
                         </div>
                       </div>
@@ -167,10 +161,10 @@ function HomeSection6() {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <button className="custom-prev absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black text-white rounded-full lg:my-4">
+              <button className="custom-prev-two absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#FFAC01] text-white rounded-full lg:my-4">
                 <IoArrowBack size={20} />
               </button>
-              <button className="custom-next absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black text-white rounded-full lg:my-4">
+              <button className="custom-next-two absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#FFAC01] text-white rounded-full lg:my-4">
                 <IoArrowForward size={20} />
               </button>
             </div>

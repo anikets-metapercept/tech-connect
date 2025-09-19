@@ -27,7 +27,7 @@ function HomeSection10() {
               TURBOCHARGE YOUR AI SKILLS WITH HANDS-ON TRAINING
             </h3>
             <div className="flex justify-start items-center flex-col lg:flex-row gap-10 my-4">
-              <div className="flex flex-col gap-6 justify-center items-start">
+              <div className="flex flex-col gap-6 justify-center items-center lg:items-start">
                 <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white text-start">
                   An Immersive Learning Experience at Metapercept Training
                   Academy
@@ -39,7 +39,7 @@ function HomeSection10() {
                 <div className="lg:my-4 text-[18px] lg:text-[32px] font-bold">
                   <Link className="group flex justify-center items-center text-[18px] lg:text-[28px] font-semibold bg-gradient-to-r gap-4 from-[#FFAC01] to-[#5ECB38] hover:bg-[#5ECB38] hover:bg-none px-10 py-4 rounded-2xl">
                     <span>Learn More</span>
-                    <FaArrowRight className="size5 -rotate-[30deg] hover:rotate-0 group-hover:rotate-0 transition-transform duration-300 mt-1.5" />
+                    <FaArrowRight className="size-5 -rotate-[30deg] hover:rotate-0 group-hover:rotate-0 transition-transform duration-300 mt-1.5" />
                   </Link>
                 </div>
               </div>
