@@ -5,7 +5,7 @@ import PriyankaBImg from "../../assets/home/speakers/PriyankaB.png";
 import BenParkerBImg from "../../assets/home/speakers/BenParker.png";
 import ChristianBuehnerImg from "../../assets/home/speakers/ChristianBuehner.png";
 import { Pagination, Navigation } from "swiper/modules";
-import { IoArrowBack, IoArrowForward } from "react-icons/io5";
+import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 const speakers = [
   {
     name: "Duke Stump",
@@ -53,8 +53,9 @@ function HomeSection3() {
             <Swiper
               slidesPerView={3}
               spaceBetween={30}
-              pagination={{
-                clickable: true,
+              navigation={{
+                nextEl: ".custom-next-three",
+                prevEl: ".custom-prev-three",
               }}
               loop={true}
               breakpoints={{
@@ -80,11 +81,11 @@ function HomeSection3() {
               {speakers.map((speaker, index) => (
                 <SwiperSlide>
                   <div key={index} className="lg:px-10">
-                    <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[400px] transition-all duration-300 ease-in-out">
+                    <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[500px] lg:h-[400px] transition-all duration-300 ease-in-out">
                       <img
                         src={speaker.photo}
                         alt={`Speaker ${speaker.name}`}
-                        className="w-full h-full object-cover transition-opacity duration-300"
+                        className="w-full h-full block object-cover transition-opacity"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
                       <div className="absolute bottom-0 w-full p-4 text-center">
@@ -100,6 +101,14 @@ function HomeSection3() {
                 </SwiperSlide>
               ))}
             </Swiper>
+            <div className="flex justify-center mt-6 space-x-3">
+              <button className="custom-prev-three z-10 p-2 bg-[#FFAC01] text-white rounded-full">
+                <MdOutlineNavigateBefore size={20} />
+              </button>
+              <button className="custom-next-three z-10 p-2 bg-[#FFAC01] text-white rounded-full">
+                <MdOutlineNavigateNext size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

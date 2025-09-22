@@ -23,7 +23,7 @@ function HomeSection10() {
             />
           </div>
           <div className="flex items-center flex-col lg:mt-8">
-            <h3 className="w-full lg:max-w-[1000px] text-center text-[22px] lg:text-[48px] text-white font-semibold">
+            <h3 className="w-full lg:max-w-[1000px] text-left text-[22px] lg:text-[48px] text-white font-semibold">
               TURBOCHARGE YOUR AI SKILLS WITH HANDS-ON TRAINING
             </h3>
             <div className="flex justify-start items-center flex-col lg:flex-row gap-10 my-4">

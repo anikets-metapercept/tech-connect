@@ -17,7 +17,7 @@ function HomeHero() {
           onLoad={() => setLoaded(true)}
         />
         {loaded && (
-          <h1 className="w-[70%] font-semibold text-[18px] sm:text-[32px] lg:text-[56px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <h1 className="max-w-screen-2xl mx-auto px-4 lg:px-10 w-full lg:w-[80%] font-semibold text-[18px] sm:text-[32px] lg:text-[56px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             {words.map((word, index) => {
               const isHighlight =
                 word === "Innovation" || word === "Conversation";

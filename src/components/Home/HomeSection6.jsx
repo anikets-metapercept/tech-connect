@@ -68,15 +68,9 @@ const events = [
 
 function HomeSection6() {
   return (
-    <div
-      style={{
-        background: `
-      linear-gradient(#0F3460,#FF5050CC)
-      `,
-      }}
-    >
+    <div>
       <div className="max-w-screen-2xl mx-auto px-4 lg:px-10">
-        <div className="w-full flex justify-center items-center flex-col gap-5 md:gap-10 py-16 relative">
+        <div className="w-full flex justify-center items-center flex-col gap-5 md:gap-10 pt-16 pb-20 relative">
           <div className="w-fit hidden lg:block absolute top-2 left-0">
             <img
               style={{ maxWidth: "94px" }}
@@ -98,8 +92,26 @@ function HomeSection6() {
                 loop={true}
                 slidesPerView={1}
                 breakpoints={{
-                  1026: { slidesPerView: 3 },
-                  768: { slidesPerView: 2 },
+                  768: {
+                    slidesPerView: "auto",
+                    coverflowEffect: {
+                      depth: 300,
+                      modifier: 1.3,
+                      rotate: 0,
+                      stretch: 0,
+                      slideShadows: false,
+                    },
+                  },
+                  1026: {
+                    slidesPerView: "auto", // 👈 let Swiper size slides dynamically
+                    coverflowEffect: {
+                      depth: 300, // stronger depth
+                      modifier: 1.3, // subtle zoom
+                      rotate: 0,
+                      stretch: 0,
+                      slideShadows: false,
+                    },
+                  },
                 }}
                 coverflowEffect={{
                   rotate: 0,
@@ -115,8 +127,11 @@ function HomeSection6() {
                 className="carousel-3D-swiper"
               >
                 {events.map((event, index) => (
-                  <SwiperSlide key={index} className="px-2 lg:px-4 w-full">
-                    <div className="group bg-white rounded-lg flex flex-col overflow-hidden h-auto lg:h-fit transition-all duration-300 ease-in-out shadow-lg mx-auto max-w-[520px]">
+                  <SwiperSlide
+                    key={index}
+                    className="px-2 lg:px-4 !w-full md:!w-[500px] lg:!w-[800px]"
+                  >
+                    <div className="group bg-white rounded-lg flex flex-col lg:flex-row overflow-hidden h-auto lg:h-fit transition-all duration-300 ease-in-out shadow-lg mx-auto">
                       {/* Image (left) */}
                       <div className="w-full h-[200px] lg:h-auto">
                         <img
@@ -161,12 +176,14 @@ function HomeSection6() {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              <button className="custom-prev-two absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#FFAC01] text-white rounded-full lg:my-4">
-                <IoArrowBack size={20} />
-              </button>
-              <button className="custom-next-two absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-[#FFAC01] text-white rounded-full lg:my-4">
-                <IoArrowForward size={20} />
-              </button>
+              <div className="absolute right-0 bottom-3 space-x-3">
+                <button className="custom-prev-two z-10 p-2 bg-[#FFAC01] text-white rounded-full">
+                  <IoArrowBack size={20} />
+                </button>
+                <button className="custom-next-two z-10 p-2 bg-[#FFAC01] text-white rounded-full">
+                  <IoArrowForward size={20} />
+                </button>
+              </div>
             </div>
           </div>
         </div>

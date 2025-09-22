@@ -5,7 +5,7 @@ function HomeSection4() {
   return (
     <div className="bg-[#051639]">
       <div className="max-w-screen-2xl mx-auto px-4 lg:px-10">
-        <div className="w-full flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 md:gap-10 py-4 relative">
+        <div className="w-full flex justify-center items-center lg:items-start flex-col customWidth:flex-col customWidth:items-center lg:flex-row gap-5 md:gap-10 py-4 relative">
           <div className="w-fit hidden lg:block absolute top-2 left-0">
             <img
               style={{ maxWidth: "94px" }}

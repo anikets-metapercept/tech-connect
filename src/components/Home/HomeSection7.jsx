@@ -13,7 +13,7 @@ function HomeSection7() {
 
   return (
     <div className="bg-white text-black">
-      <section className="max-w-screen-2xl mx-auto px-4 py-10">
+      <section className="max-w-screen-2xl mx-auto px-4 py-10 lg:py-20">
         <h3 className="text-[24px] lg:text-[36px] text-[#273142] font-bold text-center mb-8">
           Discover Events
         </h3>

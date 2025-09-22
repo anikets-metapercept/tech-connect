@@ -99,27 +99,27 @@ function Navbar() {
 
                 {/* Dropdown */}
                 {link.dropdown && isDropdownOpen === index && (
-                  <ul
-                    className="absolute mt-[0.5px] top-full left-0 w-fit bg-white rounded shadow py-2
-          transition-all duration-200 ease-out"
-                  >
-                    {link.dropdown.map((item, subIndex) => (
-                      <li key={subIndex}>
-                        <NavLink
-                          to={item.path}
-                          className={({ isActive }) =>
-                            `font-medium block text-nowrap px-4 py-2 text-sm transition-colors duration-150 ${
-                              isActive
-                                ? "text-textHover"
-                                : "text-[#000000] hover:text-textHover"
-                            }`
-                          }
-                        >
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="absolute top-full left-0">
+                    <div className="h-5 w-full"></div>
+                    <ul className="w-fit bg-white rounded shadow py-2 transition-all duration-200 ease-out">
+                      {link.dropdown.map((item, subIndex) => (
+                        <li key={subIndex}>
+                          <NavLink
+                            to={item.path}
+                            className={({ isActive }) =>
+                              `font-medium block text-nowrap px-4 py-2 text-sm transition-colors duration-150 ${
+                                isActive
+                                  ? "text-textHover"
+                                  : "text-[#000000] hover:text-textHover"
+                              }`
+                            }
+                          >
+                            {item.name}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </li>
             ))}
