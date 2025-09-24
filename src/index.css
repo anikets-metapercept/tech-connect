@@ -9,3 +9,7 @@
 .carousel-3D-swiper .swiper-slide-active {
   @apply blur-0 opacity-100 scale-105;
 }
+
+section[id] {
+  scroll-margin-top: 90px;
+}

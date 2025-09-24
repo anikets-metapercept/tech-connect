@@ -66,8 +66,6 @@ const dummyData = {
       location: "Toronto",
       image: eventImg,
     },
-  ],
-  Blogs: [
     {
       id: 8,
       title: "Tech Blog Post",

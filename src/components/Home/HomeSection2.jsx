@@ -2,6 +2,8 @@ import Slider from "react-slick";
 import metaperceptLogo from "../../assets/home/metapercept-logo.png";
 import metrLogo from "../../assets/home/metr-logo.png";
 import tectConnectLogo from "../../assets/home/tech-connect-logo.png";
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 const logos = [
   metaperceptLogo,
@@ -47,23 +49,29 @@ function HomeSection2() {
   return (
     <div>
       <div className="max-w-screen-2xl mx-auto px-4 lg:px-10">
-        <div className="w-full flex justify-center items-center customWidth:flex-col lg:flex-row flex-col gap-5 md:gap-10 py-8 md:py-16">
-          <p className="font-semibold text-[28px] lg:text-[32px] text-white">
-            Powered by
-          </p>
-          <div className="w-full max-w-5xl">
-            <Slider {...settings}>
-              {logos.map((logo, index) => (
-                <div key={index} className="px-3 py-2 pointer-events-none">
-                  <img
-                    src={logo}
-                    alt={`Client company logo ${index + 1}`}
-                    className="w-full h-20 object-contain"
-                  />
-                </div>
-              ))}
-            </Slider>
+        <div className="flex justify-center items-center flex-col py-8 md:py-16">
+          <div className="w-full flex justify-center items-center customWidth:flex-col lg:flex-row flex-col gap-5 md:gap-10">
+            <p className="font-semibold text-[28px] lg:text-[32px] text-white">
+              Powered by
+            </p>
+            <div className="w-full max-w-5xl">
+              <Slider {...settings}>
+                {logos.map((logo, index) => (
+                  <div key={index} className="px-3 py-2 pointer-events-none">
+                    <img
+                      src={logo}
+                      alt={`Client company logo ${index + 1}`}
+                      className="w-full h-20 object-contain"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
           </div>
+          <Link className="group flex justify-center items-center text-[18px] lg:text-[24px] font-semibold bg-gradient-to-r gap-4 from-[#FFAC01] to-[#5ECB38] hover:bg-[#5ECB38] hover:bg-none px-5 py-3 rounded-2xl mt-8">
+            <span>Become a Sponsor</span>
+            <FaArrowRight className="size-5 -rotate-[30deg] hover:rotate-0 group-hover:rotate-0 transition-transform duration-300 lg:mt-1.5" />
+          </Link>
         </div>
       </div>
     </div>

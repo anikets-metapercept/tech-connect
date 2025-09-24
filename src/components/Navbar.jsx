@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Main_Logo from "../assets/techConnect.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Membership", path: "/membership" },
+  { name: "Membership", sectionId: "membership" },
   {
     name: "Events",
     path: "/events",
@@ -19,7 +19,7 @@ const navLinks = [
       { name: "Conference", path: "/conference" },
     ],
   },
-  { name: "Sponsors", path: "/solutions" },
+  { name: "Sponsors", sectionId: "sponsors" },
   {
     name: "Resources",
     path: "/events",
@@ -37,6 +37,7 @@ const navLinks = [
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(null);
+  const location = useLocation();
 
   const isParentActive = (link) => {
     if (!link.dropdown) return false;
@@ -47,6 +48,20 @@ function Navbar() {
 
   const handleDropdownClick = (index) => {
     setIsDropdownOpen((prev) => (prev === index ? null : index));
+  };
+
+  const handleNavClick = (link, e) => {
+    if (link.sectionId) {
+      e.preventDefault();
+      if (location.pathname !== "/") {
+        window.location.href = `/#${link.sectionId}`;
+        return;
+      }
+      const element = document.getElementById(link.sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
@@ -76,6 +91,7 @@ function Navbar() {
                     className={`flex items-center gap-1 cursor-pointer font-medium transition-colors duration-200 ${
                       isParentActive(link) ? "text-textHover" : "text-white"
                     } hover:text-textHover text-nowrap`}
+                    onClick={(e) => handleNavClick(link, e)}
                   >
                     {link.name}
                     <MdOutlineKeyboardArrowDown
@@ -84,6 +100,13 @@ function Navbar() {
                       }`}
                     />
                   </span>
+                ) : link.sectionId ? (
+                  <button
+                    onClick={(e) => handleNavClick(link, e)}
+                    className="font-medium transition-colors duration-200 text-white hover:text-textHover"
+                  >
+                    {link.name}
+                  </button>
                 ) : (
                   <NavLink
                     to={link.path || "/"}
@@ -211,16 +234,26 @@ function Navbar() {
                           </ul>
                         )}
                       </>
+                    ) : link.sectionId ? (
+                      // Changed: Simple button with no active state for mobile section items
+                      <button
+                        onClick={(e) => {
+                          handleNavClick(link, e);
+                          setIsOpen(false);
+                        }}
+                        className="font-medium text-[18px] hover:text-textHover"
+                      >
+                        {link.name}
+                      </button>
                     ) : (
-                      // Regular NavLink for items without dropdowns
                       <NavLink
                         to={link.path || "/"}
+                        onClick={() => setIsOpen(false)}
                         className={({ isActive }) =>
                           `font-medium text-[18px] ${
                             isActive ? "text-textHover" : "hover:text-textHover"
-                          } ${link.notranslate ? "notranslate" : ""}`
+                          }`
                         }
-                        onClick={() => setIsOpen(false)}
                       >
                         {link.name}
                       </NavLink>
