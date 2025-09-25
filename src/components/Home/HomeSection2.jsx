@@ -4,6 +4,7 @@ import metrLogo from "../../assets/home/metr-logo.png";
 import tectConnectLogo from "../../assets/home/tech-connect-logo.png";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const logos = [
   metaperceptLogo,
@@ -15,9 +16,26 @@ const logos = [
 ];
 
 function HomeSection2() {
+  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const [sponsorLogos, setSponsorLogos] = useState([]);
+
+  const getSponsors = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/sponsors?populate=sponsor_image`);
+      const data = await res.json();
+      setSponsorLogos(data.data);
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getSponsors();
+  }, []);
+
   const settings = {
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     speed: 300, // Quick snap effect
@@ -56,10 +74,10 @@ function HomeSection2() {
             </p>
             <div className="w-full max-w-5xl">
               <Slider {...settings}>
-                {logos.map((logo, index) => (
-                  <div key={index} className="px-3 py-2 pointer-events-none">
+                {sponsorLogos.map((logo, index) => (
+                  <div key={index} className="px-4 py-2 pointer-events-none">
                     <img
-                      src={logo}
+                      src={`http://localhost:1337${logo.sponsor_image?.url}`}
                       alt={`Client company logo ${index + 1}`}
                       className="w-full h-20 object-contain"
                     />

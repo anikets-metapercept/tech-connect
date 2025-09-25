@@ -2,8 +2,29 @@ import { Link } from "react-router-dom";
 import partnerImg from "../../assets/home/partner.png";
 import cornerImg from "../../assets/home/VectorImg.png";
 import { FaArrowRight } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { IoCheckmark } from "react-icons/io5";
 
 function HomeSection12() {
+  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const [membershipTypes, setMembershipTypes] = useState([]);
+
+  const getMembershipData = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/memberships`);
+      const data = await res.json();
+      setMembershipTypes(data.data);
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getMembershipData();
+  }, []);
+
+
   return (
     <div
       style={{
@@ -44,54 +65,35 @@ function HomeSection12() {
               Types of Memberships
             </h3>
             <div className="w-full flex flex-col lg:flex-row justify-center items-stretch gap-10 lg:px-10 pt-5">
-              {/* Free Plan */}
-              <div className="relative bg-white rounded-lg shadow-md p-2 lg:p-6 w-full max-w-full">
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#FFAC01] text-white text-[16px] sm:text-[18px] font-semibold px-10 py-2 rounded-md shadow">
-                  Free
-                </div>
-                <ul className="mt-6 space-y-3 text-gray-800">
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Access to Webinars, Podcasts, and Panel Discussions
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Access to Newsletters, Blogs, Case Studies, and Articles
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Networking with community peers
-                  </li>
-                </ul>
-              </div>
-
-              {/* Pro Plan */}
-              <div className="relative bg-white rounded-lg shadow-md p-2 lg:p-6 w-full max-w-full">
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#FFAC01] text-white text-[16px] sm:text-[18px] font-semibold px-10 py-2 rounded-md shadow">
-                  Pro
-                </div>
-
-                <ul className="mt-6 space-y-3 text-gray-800">
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    All included from Free membership +
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Access to exclusive workshops
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Discount on Conferences
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-yellow-500 mr-2">✔</span>
-                    Access to Private Panel Discussions
-                  </li>
-                </ul>
-              </div>
+              {membershipTypes &&
+                membershipTypes.map((type, index) => (
+                  <div key={index} className="flex-1 relative bg-white rounded-lg shadow-md p-2 lg:p-6 w-full max-w-[540px]">
+                    <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#FFAC01] text-white text-[16px] sm:text-[18px] font-semibold px-10 py-2 rounded-md shadow">
+                      {type.membership_type}
+                    </div>
+                    <BlocksRenderer
+                      content={type.membership_description}
+                      blocks={{
+                        list: ({ children, format }) =>
+                          format === "unordered" ? (
+                            <ul className="mt-6 space-y-3">{children}</ul>
+                          ) : (
+                            <ol className="mt-6 space-y-3">{children}</ol>
+                          ),
+                        "list-item": ({ children }) => (
+                          <li className="flex items-start justify-start gap-1 shrink-0">
+                            <IoCheckmark className="text-[#FFAC01] font-bold size-4 lg:size-6 mt-1" />
+                            <span className="text-[16px] lg:text-[18px] font-medium">
+                              {children}
+                            </span>
+                          </li>
+                        ),
+                      }}
+                    />
+                  </div>
+                ))}
             </div>
-            <Link className="group flex justify-center items-center text-[18px] lg:text-[24px] font-semibold bg-gradient-to-r gap-4 from-[#FFAC01] to-[#5ECB38] hover:bg-[#5ECB38] hover:bg-none px-5 py-3 rounded-2xl mt-8">
+            <Link className="group flex justify-center items-center text-[18px] lg:text-[24px] font-semibold bg-gradient-to-r gap-4 from-[#FFAC01] to-[#5ECB38] hover:bg-[#5ECB38] hover:bg-none px-5 py-3 rounded-2xl">
               <span>Become a Member</span>
               <FaArrowRight className="size-5 -rotate-[30deg] hover:rotate-0 group-hover:rotate-0 transition-transform duration-300 lg:mt-1.5" />
             </Link>

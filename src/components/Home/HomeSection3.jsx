@@ -1,4 +1,3 @@
-import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AmitSImg from "../../assets/home/speakers/AmitS.png";
 import PriyankaBImg from "../../assets/home/speakers/PriyankaB.png";
@@ -6,30 +5,26 @@ import BenParkerBImg from "../../assets/home/speakers/BenParker.png";
 import ChristianBuehnerImg from "../../assets/home/speakers/ChristianBuehner.png";
 import { Pagination, Navigation } from "swiper/modules";
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
-const speakers = [
-  {
-    name: "Duke Stump",
-    role: "Game-Changing CMO & Founder, Nonfire with Soul",
-    photo: BenParkerBImg,
-  },
-  {
-    name: "Priyanka Bhat",
-    role: "Co -Founder and COO, Metapercept Technologies",
-    photo: PriyankaBImg,
-  },
-  {
-    name: "Christian Buehner",
-    role: "Game-Changing CMO & Founder, Nonfire with Soul",
-    photo: ChristianBuehnerImg,
-  },
-  {
-    name: "Amit Siddhartha",
-    role: "Founder and CEO,Metapercept Technologies",
-    photo: AmitSImg,
-  },
-];
+import { useEffect, useState } from "react";
 
 function HomeSection3() {
+  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const [speakers, setSpeakers] = useState([]);
+
+  const getSpeakers = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/speakers?populate=speaker_image`);
+      const data = await res.json();
+      setSpeakers(data.data);
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getSpeakers();
+  }, []);
+
   return (
     <div
       style={{
@@ -83,17 +78,17 @@ function HomeSection3() {
                   <div key={index} className="lg:px-10">
                     <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[500px] lg:h-[400px] transition-all duration-300 ease-in-out">
                       <img
-                        src={speaker.photo}
+                        src={`http://localhost:1337${speaker.speaker_image?.url}`}
                         alt={`Speaker ${speaker.name}`}
                         className="w-full h-full block object-cover transition-opacity"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
                       <div className="absolute bottom-0 w-full p-4 text-center">
                         <p className="text-white font-semibold text-lg">
-                          {speaker.name}
+                          {speaker.speaker_name}
                         </p>
                         <p className="text-white text-sm opacity-90">
-                          {speaker.role}
+                          {speaker.speaker_designation}
                         </p>
                       </div>
                     </div>

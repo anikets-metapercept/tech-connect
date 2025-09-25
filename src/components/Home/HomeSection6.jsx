@@ -103,7 +103,7 @@ function HomeSection6() {
                     },
                   },
                   1026: {
-                    slidesPerView: "auto", // 👈 let Swiper size slides dynamically
+                    slidesPerView: "auto",
                     coverflowEffect: {
                       depth: 300, // stronger depth
                       modifier: 1.3, // subtle zoom

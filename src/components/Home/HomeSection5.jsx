@@ -24,7 +24,8 @@ const Counter = ({ target, label, isVisible }) => {
   return (
     <div className="flex justify-center items-center flex-col text-center p-1 w-[260px]">
       <div className="font-semibold text-[68px]">
-        {count}<span className="font-semibold text-[68px]">+</span>
+        {count}
+        <span className="font-semibold text-[68px]">+</span>
       </div>
       <div className="font-semibold text-[18px]">{label}</div>
     </div>
@@ -32,8 +33,25 @@ const Counter = ({ target, label, isVisible }) => {
 };
 
 function HomeSection5() {
+  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const [highlights, setHighlights] = useState([]);
+
+  const getHighlights = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/highlights`);
+      const data = await res.json();
+      setHighlights(data.data);
+    } catch (error) {
+      console.log("Error: ", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getHighlights();
+    console.log(highlights);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,17 +88,20 @@ function HomeSection5() {
             </h3>
           </div>
           <div className="w-full flex justify-center items-center flex-wrap gap-5">
-            <Counter target={10} label="EDITION" isVisible={isVisible} />
-            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
-            <Counter target={10} label="SESSIONS" isVisible={isVisible} />
-            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
-            <Counter
-              target={100}
-              label="TRAINING DELIVERIES"
-              isVisible={isVisible}
-            />
-            <span className="hidden h-20 w-[2px] lg:block bg-textHover"></span>
-            <Counter target={50} label="SPEAKERS" isVisible={isVisible} />
+            {highlights &&
+              highlights.map((highlight, index) => (
+                <div
+                  key={index}
+                  className="flex justify-center items-center"
+                >
+                  <Counter
+                    target={highlight.highlight_number}
+                    label={highlight.highlight_name}
+                    isVisible={isVisible}
+                  />
+                  <span className="hidden h-32 w-[2px] lg:block bg-textHover"></span>
+                </div>
+              ))}
           </div>
         </div>
       </div>
