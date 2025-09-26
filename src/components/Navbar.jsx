@@ -235,7 +235,6 @@ function Navbar() {
                         )}
                       </>
                     ) : link.sectionId ? (
-                      // Changed: Simple button with no active state for mobile section items
                       <button
                         onClick={(e) => {
                           handleNavClick(link, e);

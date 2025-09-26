@@ -1,29 +1,34 @@
 import Slider from "react-slick";
-import metaperceptLogo from "../../assets/home/metapercept-logo.png";
-import metrLogo from "../../assets/home/metr-logo.png";
-import tectConnectLogo from "../../assets/home/tech-connect-logo.png";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-const logos = [
-  metaperceptLogo,
-  metrLogo,
-  tectConnectLogo,
-  metaperceptLogo,
-  metrLogo,
-  tectConnectLogo,
-];
-
 function HomeSection2() {
-  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const baseUrl = import.meta.env.VITE_STRAPI_GRAPHQL_BASE_URL;
   const [sponsorLogos, setSponsorLogos] = useState([]);
 
   const getSponsors = async () => {
     try {
-      const res = await fetch(`${baseUrl}/sponsors?populate=sponsor_image`);
-      const data = await res.json();
-      setSponsorLogos(data.data);
+      const res = await fetch(`${baseUrl}/graphql`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query ExampleQuery {
+              sponsors {
+              documentId
+              sponsor_image {
+                url
+                }
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await res.json();
+      setSponsorLogos(data.sponsors);
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -77,7 +82,7 @@ function HomeSection2() {
                 {sponsorLogos.map((logo, index) => (
                   <div key={index} className="px-4 py-2 pointer-events-none">
                     <img
-                      src={`http://localhost:1337${logo.sponsor_image?.url}`}
+                      src={`${baseUrl}${logo.sponsor_image?.url}`}
                       alt={`Client company logo ${index + 1}`}
                       className="w-full h-20 object-contain"
                     />

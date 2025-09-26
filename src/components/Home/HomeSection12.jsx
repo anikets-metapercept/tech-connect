@@ -7,14 +7,30 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { IoCheckmark } from "react-icons/io5";
 
 function HomeSection12() {
-  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const baseUrl = import.meta.env.VITE_STRAPI_GRAPHQL_BASE_URL;
   const [membershipTypes, setMembershipTypes] = useState([]);
 
   const getMembershipData = async () => {
     try {
-      const res = await fetch(`${baseUrl}/memberships`);
-      const data = await res.json();
-      setMembershipTypes(data.data);
+      const res = await fetch(`${baseUrl}/graphql`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query ExampleQuery {
+              memberships {
+                documentId
+                membership_description
+                membership_type
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await res.json();
+      setMembershipTypes(data.memberships);
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -23,7 +39,6 @@ function HomeSection12() {
   useEffect(() => {
     getMembershipData();
   }, []);
-
 
   return (
     <div
@@ -67,7 +82,10 @@ function HomeSection12() {
             <div className="w-full flex flex-col lg:flex-row justify-center items-stretch gap-10 lg:px-10 pt-5">
               {membershipTypes &&
                 membershipTypes.map((type, index) => (
-                  <div key={index} className="flex-1 relative bg-white rounded-lg shadow-md p-2 lg:p-6 w-full max-w-[540px]">
+                  <div
+                    key={index}
+                    className="flex-1 relative bg-white rounded-lg shadow-md p-2 lg:p-6 w-full max-w-[540px]"
+                  >
                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#FFAC01] text-white text-[16px] sm:text-[18px] font-semibold px-10 py-2 rounded-md shadow">
                       {type.membership_type}
                     </div>

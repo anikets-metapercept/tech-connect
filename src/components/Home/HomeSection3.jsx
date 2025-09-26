@@ -8,14 +8,33 @@ import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 import { useEffect, useState } from "react";
 
 function HomeSection3() {
-  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const baseUrl = import.meta.env.VITE_STRAPI_GRAPHQL_BASE_URL;
   const [speakers, setSpeakers] = useState([]);
 
   const getSpeakers = async () => {
     try {
-      const res = await fetch(`${baseUrl}/speakers?populate=speaker_image`);
-      const data = await res.json();
-      setSpeakers(data.data);
+      const res = await fetch(`${baseUrl}/graphql`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query ExampleQuery {
+              speakers {
+                documentId
+                speaker_name
+                speaker_designation
+                speaker_image {
+                  url
+                }
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await res.json();
+      setSpeakers(data.speakers);
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -78,7 +97,7 @@ function HomeSection3() {
                   <div key={index} className="lg:px-10">
                     <div className="group bg-[#CBCBCB] rounded-lg flex justify-center items-center flex-col relative overflow-hidden h-[500px] lg:h-[400px] transition-all duration-300 ease-in-out">
                       <img
-                        src={`http://localhost:1337${speaker.speaker_image?.url}`}
+                        src={`${baseUrl}${speaker.speaker_image?.url}`}
                         alt={`Speaker ${speaker.name}`}
                         className="w-full h-full block object-cover transition-opacity"
                       />

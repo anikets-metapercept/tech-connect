@@ -33,16 +33,32 @@ const Counter = ({ target, label, isVisible }) => {
 };
 
 function HomeSection5() {
-  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const baseUrl = import.meta.env.VITE_STRAPI_GRAPHQL_BASE_URL;
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const [highlights, setHighlights] = useState([]);
 
   const getHighlights = async () => {
     try {
-      const res = await fetch(`${baseUrl}/highlights`);
-      const data = await res.json();
-      setHighlights(data.data);
+      const res = await fetch(`${baseUrl}/graphql`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query ExampleQuery {
+              highlights {
+                documentId
+                highlight_name
+                highlight_number
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await res.json();
+      setHighlights(data.highlights);
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -50,7 +66,6 @@ function HomeSection5() {
 
   useEffect(() => {
     getHighlights();
-    console.log(highlights);
   }, []);
 
   useEffect(() => {
@@ -90,16 +105,15 @@ function HomeSection5() {
           <div className="w-full flex justify-center items-center flex-wrap gap-5">
             {highlights &&
               highlights.map((highlight, index) => (
-                <div
-                  key={index}
-                  className="flex justify-center items-center"
-                >
+                <div key={index} className="flex justify-center items-center">
                   <Counter
                     target={highlight.highlight_number}
                     label={highlight.highlight_name}
                     isVisible={isVisible}
                   />
-                  <span className="hidden h-32 w-[2px] lg:block bg-textHover"></span>
+                  {index < highlights.length - 1 && (
+                    <span className="hidden h-32 w-[2px] lg:block bg-textHover"></span>
+                  )}
                 </div>
               ))}
           </div>

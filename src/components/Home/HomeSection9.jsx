@@ -1,16 +1,32 @@
 import { useEffect, useState } from "react";
 
 function HomeSection9() {
-  const baseUrl = import.meta.env.VITE_STRAPI_BASE_URL;
+  const baseUrl = import.meta.env.VITE_STRAPI_GRAPHQL_BASE_URL;
   const [eventGallery, setEventGallery] = useState([]);
 
   const getImages = async () => {
     try {
-      const res = await fetch(
-        `${baseUrl}/event-galleries?populate=event_image`
-      );
-      const data = await res.json();
-      setEventGallery(data.data);
+      const res = await fetch(`${baseUrl}/graphql`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+            query ExampleQuery {
+              eventGalleries {
+                documentId
+                event_image {
+                  url
+                }
+              }
+            }
+          `,
+        }),
+      });
+      const { data } = await res.json();
+
+      setEventGallery(data.eventGalleries); // images
     } catch (error) {
       console.log("Error: ", error.message);
     }
@@ -26,8 +42,9 @@ function HomeSection9() {
         {eventGallery &&
           eventGallery.map((image) => (
             <img
+              key={image.documentId}
               className="object-cover rounded-lg w-full h-full"
-              src={`http://localhost:1337${image.event_image?.url}`}
+              src={`${baseUrl}${image.event_image?.url}`}
               alt=""
             />
           ))}
